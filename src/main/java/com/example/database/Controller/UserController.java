@@ -5,15 +5,16 @@ import com.example.database.Service.UserService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("api/v1/user")
+@RequestMapping(path = "api/v1/user")
 @RequiredArgsConstructor
+@CrossOrigin
 public class UserController {
-
     private final UserService userService;
 
     @GetMapping("/get")
@@ -21,7 +22,7 @@ public class UserController {
         return ResponseEntity.status(200).body(userService.getAllUsers());
     }
 
-    @PostMapping("/create")
+    @PostMapping(path = "/create",consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity addUser(@Valid @RequestBody User user , Errors err){
         if(err.hasErrors()){
             String msg = err.getFieldError().getDefaultMessage();
@@ -52,4 +53,41 @@ public class UserController {
         }
         return ResponseEntity.status(200).body("User with this ID dosent exist!");
     }
+    @GetMapping("/getById/{id}")
+    public ResponseEntity findUserById(@PathVariable int id) {
+        return ResponseEntity.status(200).body(userService.findUserById(id));
+    }
+    @GetMapping("/getByName/{name}")
+    public ResponseEntity findUserByName(@PathVariable String name) {
+        return ResponseEntity.status(200).body(userService.findByName(name));
+    }
+    //1
+    @GetMapping("/check/{email}/{password}")
+    public ResponseEntity findUserEmail(@PathVariable("email") String email ,@PathVariable("password") Integer password) {
+
+        return  ResponseEntity.status(200).body(userService.findByEmailAndPassword(email,password));
+    }
+
+    //2
+    @GetMapping("/getEmail/{email}")
+    public ResponseEntity findUserEmail(@PathVariable String email) {
+        return ResponseEntity.status(200).body(userService.findUserByEmail(email));
+    }
+
+    //3
+    @GetMapping("/getRole/{role}")
+    public ResponseEntity findUserRole(@PathVariable String role) {
+        return ResponseEntity.status(200).body(userService.findByRole(role));
+    }
+
+    //4
+    @GetMapping("/getAge/{age}")
+    public ResponseEntity findUserRole(@PathVariable Integer age) {
+        return ResponseEntity.status(200).body(userService.findByAge(age));
+    }
+
+
+
+
+
 }
