@@ -18,7 +18,7 @@ export default function Users() {
     const[role,setRole]=useState('')
     const[age1,setAge1]=useState()
     const[users,setUsers]=useState([])
-
+    //when the button is clicked all values from the form will be sent to this function
     const handleClick=(e)=>{
         var age = parseInt(age1);
         var password = parseInt(password1);
@@ -29,7 +29,7 @@ export default function Users() {
         const headers = {
             'Content-Type': 'application/json',
           }
-          
+          //values are passed to the API endpoint using post method
           axios.post("http://localhost:8080/api/v1/user/create", {name,username,password,email,role,age}, {
               headers: headers
             })
@@ -40,7 +40,8 @@ export default function Users() {
                 console.log(error)
             })
     }
-
+    //use effect is react function that works right when the page is initiated or refreshed so it will keep calling the get method
+    //so get function will work everytime the page is refreshed
     useEffect(()=>{
         axios
         .get("http://localhost:8080/api/v1/user/get")
