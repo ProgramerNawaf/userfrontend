@@ -21,8 +21,8 @@ public class UserController {
     public ResponseEntity getAllUser(){
         return ResponseEntity.status(200).body(userService.getAllUsers());
     }
-
-    @PostMapping(path = "/create",consumes = MediaType.APPLICATION_JSON_VALUE)
+    //,consumes = MediaType.APPLICATION_JSON_VALUE
+    @PostMapping(path = "/create")
     public ResponseEntity addUser(@Valid @RequestBody User user , Errors err){
         if(err.hasErrors()){
             String msg = err.getFieldError().getDefaultMessage();
