@@ -7,4 +7,4 @@
 # 3- npm start
 # and then the server will start on port 3000!
 # 4-Go to your userController.java and add @CrossOrigin above the class
-# 5- path ur way to users.js and start programing 
+# 5- path ur way to users.js and start developing :)
